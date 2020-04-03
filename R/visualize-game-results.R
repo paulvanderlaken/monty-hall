@@ -56,7 +56,7 @@ ggplot(data = results) +
   labs(y = 'Cumulative number of games won') +
   labs(col = NULL) +
   labs(caption = 'paulvanderlaken.com') +
-  labs(title = generated_title)
+  labs(title = title)
 
 # save the plot in the output folder
 # create the output folder if it does not exist yet

@@ -10,7 +10,7 @@ library(ggplot2)
 seed = 1
 
 # pick number of games you want to simulate
-n_games = 50
+n_games = 1000
 
 # simulate the games and store the boolean results
 results_without_switching = simulate_n_games(n = n_games, seed = seed, make_switch = FALSE)

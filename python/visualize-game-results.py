@@ -10,7 +10,7 @@ import os
 seed(1)
 
 # pick number of games you want to simulate
-n_games = 50
+n_games = 1000
 
 # simulate the games and store the boolean results
 results_with_switching = [simulate_game(make_switch=True) for _ in range(n_games)]

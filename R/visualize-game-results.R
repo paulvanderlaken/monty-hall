@@ -6,7 +6,7 @@ library(ggplot2)
 
 # set the seed here
 # do not set the `seed` parameter in `simulate_game()`,
-# as this will make the function retun `n_games` times the same results
+# as this will make the function return `n_games` times the same results
 seed = 1
 
 # pick number of games you want to simulate
@@ -23,16 +23,16 @@ results = data.frame(
   cumulative_wins_with_switching = cumsum(results_with_switching)
 )
 
-# make a function to print nice percentages
-format_percentage = function(x) {
-  return(paste0(formatC(mean(x) * 100, digits = 1, format = 'f'), '%'))
+# function that turns values into nice percentages
+format_percentage = function(values) {
+  return(paste0(formatC(mean(values) * 100, digits = 1, format = 'f'), '%'))
 }
 
 # generate a title based on the results of the simulations
-title = glue::glue(
-  'Switching doors wins you {sum(results_with_switching)} of {n_games} games ({format_percentage(mean(results_with_switching))})',
-  '\n',
-  'as opposed to only {sum(results_without_switching)} games ({format_percentage(mean(results_without_switching))}) when not switching'
+title = paste(
+  paste0('Switching doors wins you ', sum(results_with_switching), ' of ', n_games, ' games (', format_percentage(mean(results_with_switching)), ')'),
+  paste0('as opposed to only ', sum(results_without_switching), ' games (', format_percentage(mean(results_without_switching)), ') when not switching)'),
+  sep = '\n'
 )
 
 # set some basic plotting parameters

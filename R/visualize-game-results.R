@@ -24,8 +24,8 @@ results = data.frame(
 )
 
 # function that turns values into nice percentages
-format_percentage = function(values) {
-  return(paste0(formatC(mean(values) * 100, digits = 1, format = 'f'), '%'))
+format_percentage = function(values, digits = 1) {
+  return(paste0(formatC(values * 100, digits = digits, format = 'f'), '%'))
 }
 
 # generate a title based on the results of the simulations
@@ -62,3 +62,25 @@ ggplot(data = results) +
 # create the output folder if it does not exist yet
 if (!file.exists('output')) dir.create('output', showWarnings = FALSE)
 ggsave(paste0('output/monty-hall_', n_games, '_r.png'), width = w, height = h)
+
+
+# make a line plot of the rolling % win chance with and without switching
+ggplot(data = results) +
+  geom_line(aes(x = game, y = cumulative_wins_with_switching / game, col = names(palette[1])), size = linesize) +
+  geom_line(aes(x = game, y = cumulative_wins_without_switching / game, col = names(palette[2])), size = linesize) +
+  scale_x_continuous(breaks = x_breaks) +
+  scale_y_continuous(labels = function(x) format_percentage(x, digits = 0)) +
+  scale_color_manual(values = palette) +
+  theme_minimal() +
+  theme(legend.position = c(1, 1), legend.justification = c(1, 1), legend.background = element_rect(fill = 'white', color = 'transparent')) +
+  labs(x = 'Number of games played') +
+  labs(y = '% of games won') +
+  labs(col = NULL) +
+  labs(caption = 'paulvanderlaken.com') +
+  labs(title = title)
+
+
+# save the plot in the output folder
+# create the output folder if it does not exist yet
+if (!file.exists('output')) dir.create('output', showWarnings = FALSE)
+ggsave(paste0('output/monty-hall_perc_', n_games, '_r.png'), width = w, height = h)
